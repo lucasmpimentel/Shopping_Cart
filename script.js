@@ -15,14 +15,14 @@ function createCustomElement(element, className, innerText) {
 function cartItemClickListener(event) {
   event.target.remove();
   const total = document.querySelector('.total-price');
-  const productPrice = Math.round(event.target.innerText
+  const productPrice = Number(event.target.innerText
     .substring(event.target.innerText.indexOf('$') + 1, event.target.innerText.length));
-  total.innerText = Math.round(total.innerText) - productPrice;
+  total.innerText = Number(total.innerText) - productPrice;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const total = document.querySelector('.total-price');
-  total.innerText = Math.round(total.innerText) + salePrice;
+  total.innerText = Number(total.innerText) + salePrice;
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
