@@ -1,4 +1,5 @@
 const actualCartItems = document.querySelector('.cart__items');
+const getTotalPrice = document.querySelector('.total-price');
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -16,7 +17,7 @@ function createCustomElement(element, className, innerText) {
 
 function cartItemClickListener(event) {
   event.target.remove();
-  const total = document.querySelector('.total-price');
+  const total = getTotalPrice;
   const productPrice = Number(event.target.innerText
     .substring(event.target.innerText.indexOf('$') + 1, event.target.innerText.length));
   total.innerText = Number(total.innerText) - productPrice;
@@ -24,7 +25,7 @@ function cartItemClickListener(event) {
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
-  const total = document.querySelector('.total-price');
+  const total = getTotalPrice;
   total.innerText = Number(total.innerText) + salePrice;
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -74,6 +75,13 @@ function reactiveRemoverFromCart() {
     item.addEventListener('click', cartItemClickListener);
   });
 }
+
+const getEraseAllButton = document.querySelector('.empty-cart');
+getEraseAllButton.addEventListener('click', () => {
+  actualCartItems.innerHTML = null;
+  getTotalPrice.innerText = 0;
+  saveCartItems(actualCartItems.innerHTML);
+});
 
 window.onload = () => {
   insert();
