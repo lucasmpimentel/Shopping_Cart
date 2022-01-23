@@ -15,6 +15,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+// "ADD AND REMOVE TO CART" LISTENER, AND TOTAL PRICE IMPLEMENTATION
 function cartItemClickListener(event) {
   event.target.remove();
   const total = getTotalPrice;
@@ -47,6 +48,8 @@ async function getItemsToCart(event) {
   saveCartItems(actualCartItems.innerHTML);
 }
 
+// -------------------------- ^^^^ ----------------------------------------
+
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -60,7 +63,7 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// LOADING ON SCREEN
+// "LOADING" TEXT ON SCREEN WHILE API IS LOADING
 const getItemsContainer = document.querySelector('.items');
 const loading = () => {
   const div = document.createElement('div');
@@ -72,6 +75,7 @@ const noLoading = () => {
   document.querySelector('.loading').remove();
 };
 
+// INSERT PRODUCTS ON PAGE
 async function insert() {
   loading();
   const search = await fetchProducts('computador');
@@ -84,12 +88,14 @@ async function insert() {
   noLoading();
 }
 
+// THIS FUNCTION IS NEEDED TO REACTIVATE CART LISTENERS AFTER REFRESH
 function reactiveRemoverFromCart() {
   actualCartItems.childNodes.forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
   });
 }
 
+// ERASE ALL BUTTON
 const getEraseAllButton = document.querySelector('.empty-cart');
 getEraseAllButton.addEventListener('click', () => {
   actualCartItems.innerHTML = null;
